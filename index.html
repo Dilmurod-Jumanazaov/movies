@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/bootstrap.min.css">
   <link rel="stylesheet" href="./css/main.css">
   <title>Movies</title>
 </head>
@@ -21,16 +22,34 @@
           <p class="form-box__input-text text">
             From
           </p>
-          <input class="form-box__input-year-from" type="number" name="user_movie_search_year" placeholder="Search movie year">
+          <input class="form-box__input-year-from" type="number" name="user_movie_search_year" placeholder="Search movie year" required>
         </div>
         <div class="form-box__input-wrap">
           <p class="form-box__input-text text">
             To
           </p>
-          <input class="form-box__input-year-to" type="number" name="user_movie_search_year" placeholder="Search movie year">
+          <input class="form-box__input-year-to" type="number" name="user_movie_search_year" placeholder="Search movie year" required>
         </div>
         <button class="form-box__btn" type="submit">Search</button>
       </form>
+      <!-- Modal -->
+      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              ...
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Understood</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </header>
   <!-- site header end -->
@@ -53,6 +72,7 @@
   <footer class="site-footer">
   </footer>
   <!-- site footer end -->
+  <script src="./js/bootstrap.min.js"></script>
   <script src="./js/movies.js"></script>
   <script src="./js/main.js"></script>
 </body>

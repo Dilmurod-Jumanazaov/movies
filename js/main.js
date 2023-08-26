@@ -4,6 +4,8 @@ const elInputYearFrom = elForm.querySelector(".form-box__input-year-from")
 const elInputYearTo = elForm.querySelector(".form-box__input-year-to");
 const elInputCategory = elForm.querySelector(".form-box__input-category");
 const elList = document.querySelector(".hero__list");
+const modalTitle = document.querySelector(".modal-title");
+const modalBody = document.querySelector(".modal-body");
 
 const new_movies = movies.slice(0,120);
 renderMovie(new_movies);
@@ -20,9 +22,10 @@ function renderMovie(array) {
     let textElement = document.createElement("p");
     let ratingElement = document.createElement("span");
     let languageElement = document.createElement("p");
-    let categoryElement = document.createElement("p");
+    // let categoryElement = document.createElement("p");
     let linkBox = document.createElement("div");
     let movieLinkElement = document.createElement("a");
+    let modalBtn = document.createElement("button");
     
     movieYear.textContent = `Movie year: ${element.movie_year}`;
     movieYear.setAttribute("datetime","2023-08-09");
@@ -33,10 +36,16 @@ function renderMovie(array) {
     textElement.textContent = element.summary;
     ratingElement.textContent = `Movie rating: ${element.imdb_rating}`;
     languageElement.textContent = `Movie language: ${element.language}`;
-    categoryElement.textContent = `Categories: ${element.Categories}`;
+    // categoryElement.textContent = `Categories: ${element.Categories}`;
     movieLinkElement.textContent = "Watch movie"
     movieLinkElement.setAttribute("target","blank");
     movieLinkElement.setAttribute("href",`https://www.imdb.com/title/${element.imdb_id}`);
+    modalBtn.textContent = "More info"
+    modalBtn.setAttribute("data-bs-toggle","modal");
+    modalBtn.setAttribute("data-bs-target","#staticBackdrop");
+    modalTitle.textContent = element.fulltitle;
+    modalBody.textContent = element.Categories;
+    modalBtn.dataset.id = element.ytid;
     
     liElement.classList.add("hero__item");
     movieYear.classList.add("hero__movie-year"); 
@@ -44,15 +53,16 @@ function renderMovie(array) {
     titleElement.classList.add("hero__subtitle");
     summaryElement.classList.add("hero__summary");
     languageElement.classList.add("hero__movie-lang");
-    ratingElement.classList.add("hero__movie-rating");
-    categoryElement.classList.add("hero__movie-category"); 
-    linkBox.classList.add("hero__link-box");
+    ratingElement.classList.add("hero__movie-rating","mb-auto","pb-3");
+    // categoryElement.classList.add("hero__movie-category"); 
+    linkBox.classList.add("hero__link-box","mb-3");
     movieLinkElement.classList.add("hero__movie-link");
+    modalBtn.classList.add("modal-btn","btn","btn-succes");
     
     titleBoxElement.appendChild(titleElement);
     detailsElement.append(summaryElement,textElement);
     linkBox.appendChild(movieLinkElement);
-    liElement.append(movieYear,imgElement,titleBoxElement,detailsElement,languageElement,ratingElement,categoryElement,linkBox);
+    liElement.append(movieYear,imgElement,titleBoxElement,detailsElement,languageElement,ratingElement,linkBox,modalBtn);
     elList.appendChild(liElement);
   }); 
 }
@@ -68,8 +78,6 @@ elInputMovie.addEventListener("keyup",function() {
   })
   renderMovie(filteredMovieName);
 });
-
-
 elForm.addEventListener("submit", function(evt) {
   evt.preventDefault();
   
@@ -85,21 +93,13 @@ elForm.addEventListener("submit", function(evt) {
   })
   renderMovie(filteredMovieYear);
 });
-
-// let filterArr = [];
-// let movieCategory = "";
-
-// new_movies.forEach(element => {
-  
-//   let categoryArr = element.Categories.split("|");
-//   // console.log(categoryArr);
-
-//   categoryArr.forEach(function(item) {
-    
-//     if(movieCategory != item) {
-//       movieCategory = item
-//       filterArr.push(movieCategory);        
-//     }
-//   })
-// })
-// console.log(filterArr);
+elList.addEventListener("click", (evt) => {
+  if(evt.target.matches(".modal-btn")) {
+    const modalBtnId = evt.target.dataset.id;
+    const findMovie = new_movies.find(function(element) {
+      return element.ytid == modalBtnId;
+    });
+    modalTitle.textContent = findMovie.fulltitle;
+    modalBody.textContent = findMovie.Categories;
+  }
+})
